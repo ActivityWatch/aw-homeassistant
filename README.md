@@ -59,7 +59,7 @@ uv pip install pytest-homeassistant-custom-component ruff
 This integration is built with core submission in mind (config flow, `DataUpdateCoordinator`, entity translations, diagnostics, tests). Remaining before a core PR:
 
 - [ ] Extract the API client into a published async library (async support in [aw-client](https://github.com/ActivityWatch/aw-client))
-- [ ] Add to [home-assistant/brands](https://github.com/home-assistant/brands)
+- [x] Local brand images in `custom_components/activitywatch/brand/` (HA 2026.3+; [home-assistant/brands](https://github.com/home-assistant/brands) no longer accepts custom-integration icons)
 - [ ] Bake in HACS default repository inclusion, gather usage feedback
 - [ ] Quality-scale checklist (reconfigure flow, repair issues, more tests)
 
