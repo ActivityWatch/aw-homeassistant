@@ -1,0 +1,26 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "active": {
+        "default": "mdi:monitor-off",
+        "state": {
+          "on": "mdi:monitor"
+        }
+      }
+    },
+    "sensor": {
+      "screen_time_today": {
+        "default": "mdi:timer-outline"
+      },
+      "current_app": {
+        "default": "mdi:application-outline"
+      },
+      "current_window_title": {
+        "default": "mdi:format-title"
+      },
+      "last_seen": {
+        "default": "mdi:clock-outline"
+      }
+    }
+  }
+}

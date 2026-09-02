@@ -1,0 +1,62 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to aw-server",
+        "description": "Enter the address of the aw-server instance to read from. Note that aw-server has no authentication: only connect to servers on a network you trust.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "ssl": "Uses SSL"
+        }
+      },
+      "hosts": {
+        "title": "Select hosts to track",
+        "description": "Each selected host becomes a device with activity sensors. Hosts with recent activity are preselected.",
+        "data": {
+          "hosts": "Hosts"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to aw-server",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This aw-server is already configured",
+      "no_hosts": "No tracked hosts were found on this aw-server"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ActivityWatch options",
+        "data": {
+          "hosts": "Hosts to track",
+          "update_interval": "Update interval (seconds)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "active": {
+        "name": "Active"
+      }
+    },
+    "sensor": {
+      "screen_time_today": {
+        "name": "Screen time today"
+      },
+      "current_app": {
+        "name": "Current app"
+      },
+      "current_window_title": {
+        "name": "Current window title"
+      },
+      "last_seen": {
+        "name": "Last seen"
+      }
+    }
+  }
+}
