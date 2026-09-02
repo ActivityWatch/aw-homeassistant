@@ -20,6 +20,8 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+          # No logo in home-assistant/brands yet; remove once the brands PR lands.
+          ignore: brands
 
   test:
     runs-on: ubuntu-latest

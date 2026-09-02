@@ -65,4 +65,4 @@ This integration is built with core submission in mind (config flow, `DataUpdate
 
 ## License
 
-MPL-2.0, same as ActivityWatch.
+MIT. Core ActivityWatch is MPL-2.0, but this integration is deliberately permissive: Home Assistant core contributions are relicensed Apache-2.0 under the HA CLA, and an MIT history means external contributions to this repo can be upstreamed into core without relicensing friction.
