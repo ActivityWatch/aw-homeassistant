@@ -12,7 +12,11 @@ import pytest
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from pytest_homeassistant_custom_component.test_util.aiohttp import AiohttpClientMocker
 
-from custom_components.activitywatch.const import CONF_HOSTS, CONF_UPDATE_INTERVAL, DOMAIN
+from custom_components.activitywatch.const import (
+    CONF_HOSTS,
+    CONF_UPDATE_INTERVAL,
+    DOMAIN,
+)
 
 from .conftest import BASE_URL, INFO, buckets_fixture
 
@@ -80,9 +84,10 @@ async def test_malformed_json_becomes_update_failed(
     hass: HomeAssistant, aioclient_mock: AiohttpClientMocker
 ) -> None:
     """A JSON-typed but undecodable body should surface as UpdateFailed."""
+    from homeassistant.helpers.aiohttp_client import async_get_clientsession
+
     from custom_components.activitywatch.api import ActivityWatchClient
     from custom_components.activitywatch.coordinator import ActivityWatchCoordinator
-    from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
     entry = MockConfigEntry(
         domain=DOMAIN, data=USER_INPUT,
@@ -103,9 +108,10 @@ async def test_today_window_uses_local_midnight(
     hass: HomeAssistant, mock_aw_server: AiohttpClientMocker
 ) -> None:
     """The "today" query period starts at HA-local midnight, with offsets."""
+    from homeassistant.helpers.aiohttp_client import async_get_clientsession
+
     from custom_components.activitywatch.api import ActivityWatchClient
     from custom_components.activitywatch.coordinator import ActivityWatchCoordinator
-    from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
     await hass.config.async_set_time_zone("Pacific/Auckland")
     entry = MockConfigEntry(
