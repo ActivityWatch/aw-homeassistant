@@ -118,8 +118,22 @@ class ActivityWatchConfigFlow(ConfigFlow, domain=DOMAIN):
                 LOGGER.exception("Unexpected error connecting to aw-server")
                 errors["base"] = "unknown"
             else:
-                await self.async_set_unique_id(info["device_id"])
-                self._abort_if_unique_id_configured()
+                device_id = info.get("device_id") if isinstance(info, dict) else None
+                if not device_id:
+                    errors["base"] = "missing_device_id"
+                    return self.async_show_form(
+                        step_id="user", data_schema=USER_SCHEMA, errors=errors
+                    )
+                await self.async_set_unique_id(device_id)
+                # The same aw-server may come back at a new address (DHCP):
+                # point the existing entry at it instead of keeping the dead one.
+                self._abort_if_unique_id_configured(
+                    updates={
+                        CONF_HOST: user_input[CONF_HOST],
+                        CONF_PORT: user_input[CONF_PORT],
+                        CONF_SSL: user_input[CONF_SSL],
+                    }
+                )
                 self._data = user_input
                 self._server_hostname = info.get("hostname", user_input[CONF_HOST])
                 self._discovered = discover_hosts(buckets)
@@ -164,8 +178,11 @@ class ActivityWatchOptionsFlow(OptionsFlow):
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
         """Manage the options."""
+        errors: dict[str, str] = {}
         if user_input is not None:
-            return self.async_create_entry(data=user_input)
+            if user_input.get(CONF_HOSTS):
+                return self.async_create_entry(data=user_input)
+            errors[CONF_HOSTS] = "no_hosts_selected"
 
         entry = self.config_entry
         client = ActivityWatchClient(
@@ -199,4 +216,4 @@ class ActivityWatchOptionsFlow(OptionsFlow):
                 )
             }
         )
-        return self.async_show_form(step_id="init", data_schema=schema)
+        return self.async_show_form(step_id="init", data_schema=schema, errors=errors)

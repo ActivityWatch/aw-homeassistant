@@ -20,7 +20,8 @@
     },
     "error": {
       "cannot_connect": "Failed to connect to aw-server",
-      "unknown": "Unexpected error"
+      "unknown": "Unexpected error",
+      "missing_device_id": "The server did not report a device ID. Is this an aw-server (v0.12 or newer)?"
     },
     "abort": {
       "already_configured": "This aw-server is already configured",
@@ -36,6 +37,9 @@
           "update_interval": "Update interval (seconds)"
         }
       }
+    },
+    "error": {
+      "no_hosts_selected": "Select at least one host to track"
     }
   },
   "entity": {

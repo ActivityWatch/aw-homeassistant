@@ -48,7 +48,8 @@ class ActivityWatchClient:
                 response = await self._session.request(method, url, json=json_data)
                 response.raise_for_status()
                 return await response.json()
-        except (aiohttp.ClientError, TimeoutError) as err:
+        except (aiohttp.ClientError, TimeoutError, ValueError) as err:
+            # ValueError covers a JSON-typed body that does not decode.
             raise ActivityWatchConnectionError(
                 f"Error communicating with aw-server at {self.base_url}: {err}"
             ) from err
